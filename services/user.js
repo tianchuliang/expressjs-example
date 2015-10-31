@@ -1,6 +1,6 @@
 var userStore = require('../stores/user.js');
-
 module.exports.LinkApp = function(app) {
+	
 	app.get('/api/users', function(req, res) {
 		userStore.getAll(function(users) {
 			res.json(users);

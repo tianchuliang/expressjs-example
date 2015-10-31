@@ -4,9 +4,9 @@ var bodyParser = require('body-parser');
 var app = express();
 app.use(bodyParser.json());
 
-// Include the Todo-lists service and let it bind to the application
-var todoService = require('./services/user.js');
-todoService.LinkApp(app);
+// Include the users service and let it bind to the application
+var userService = require('./services/user.js');
+userService.LinkApp(app);
 
 var server = app.listen(8080, function() {
 	var host = server.address().address;
