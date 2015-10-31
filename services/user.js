@@ -18,7 +18,7 @@ module.exports.LinkApp = function(app) {
 	app.post('/api/users', function(req, res) {
 		var user = req.body;
 		if (!user) return res.sendStatus(400);
-		user.save(user, function(user, error) {
+		userStore.save(user, function(user, error) {
 			if (error) return res.sendStatus(400);
 			res.json(user);
 		});
@@ -40,15 +40,12 @@ module.exports.LinkApp = function(app) {
 
 	app.delete('/api/users/:id', function(req, res) {
 		var userId = req.params.id;
-		var userUpdate = req.body;
-		// if (!userUpdate) return res.sendStatus(400);
-		// userStore.get(userId, function(user, error) {
-		// 	if (error) return res.sendStatus(400);
-		// 	userUpdate.id = user.id;
-		// 	userStore.save(userUpdate, function(user, error) {
-		// 		if (error) return res.sendStatus(400);
-		// 		res.json(user);
-		// 	});
-		// });
+		userStore.get(userId,function(user,error){
+			if(error) return res.sendStatus(400);
+			userStore.delete(user, function(user_deleted, error) {
+			if (error) return res.sendStatus(400);
+			res.json(user_deleted);
+			});
+		}); 		
 	});
 };
